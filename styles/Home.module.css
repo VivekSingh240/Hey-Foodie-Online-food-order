@@ -1,5 +1,6 @@
 .header{
   justify-content: end;
+  
 }
 .text{
   font-family: emoji;
@@ -8,3 +9,4 @@
   font-weight: 600;
   margin-bottom: 20px ;
 }
+

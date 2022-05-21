@@ -13,9 +13,8 @@ import { useQuery } from "graphql-hooks";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { useEffect } from "react";
+import Link from "next/link";
 const { Header, Content, Footer } = Layout;
-
-// const {id} = router.query
 
 const HOMEPAGE_QUERY = `query HomePage($limit: Int) {
     Products(limit: $limit) {
@@ -29,7 +28,6 @@ const HOMEPAGE_QUERY = `query HomePage($limit: Int) {
   }`;
 
 const ProductCard = () => {
-  const [ProductsDetail, setdetails] = useState([]);
   const [cartItemList, setCartItemList] = useState(0);
   const router = useRouter();
 
@@ -43,11 +41,7 @@ const ProductCard = () => {
       return item.category === router.query.ct;
     });
 
-    // useEffect(()=>{
-    //   console.log("-------Hit------");
-    //   setCartItemList(localStorage.getItem("Cart") ? JSON.parse(localStorage.getItem("Cart")).length : 0)
-    // },[localStorage.getItem("Cart") && JSON.parse(localStorage.getItem("Cart")).length])
-
+    
   const saveData = (product) => {
     try {
       const getDatFromLocalStorage = localStorage.getItem("Cart") ? JSON.parse(localStorage.getItem("Cart")) : [];
@@ -75,13 +69,14 @@ const ProductCard = () => {
               <a href="">My Orders</a>
             </Menu.Item>
             <Menu.Item key="cart">
+            <Link href={`/Cart`}>
                 <Badge count={cartItemList} size="small" showZero>
                   <ShoppingCartOutlined
                     key={"shopping"}
                     style={{ color: "white", fontSize: "25px" }}
                   />
                 </Badge>
-            
+                </Link>
             </Menu.Item>
           </Menu>
         </Header>

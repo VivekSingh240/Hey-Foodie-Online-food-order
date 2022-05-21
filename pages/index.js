@@ -5,7 +5,6 @@ import { Layout, Menu, Row, Col, Carousel } from "antd";
 import styles from "../styles/Home.module.css";
 import { Card, Avatar } from "antd";
 import { useQuery } from "graphql-hooks";
-
 const { Header, Footer, Sider, Content } = Layout;
 import Img1 from "../public/Images/img-1.webp";
 import Img2 from "../public/Images/img-2.jpg";
@@ -13,6 +12,7 @@ import Img3 from "../public/Images/img-3.jpg";
 import Img4 from "../public/Images/img-4.jpg";
 import Link from "next/link";
 import { useEffect } from "react";
+import  Pageheader  from "../pages/Components/index.jsx";
 const SubMenu = Menu.SubMenu;
 const MenuItemGroup = Menu.ItemGroup;
 const { Meta } = Card;
@@ -36,7 +36,9 @@ const Restaurants = `query MyQuery {
 }
 `;
 
-const Home = ()=> {
+const Home = () => {
+
+
   const { data } = useQuery(Restaurants, {});
   console.log("data", data);
 
@@ -56,18 +58,20 @@ const Home = ()=> {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Layout>
-        <Header>
+     
+        <Header >
           <Menu mode="horizontal" theme="dark" className={styles.header}>
-            <Menu.Item key="mail">
-              <a href="">Log in</a>
+            <Menu.Item key="sign_up"> <Link href={`/Sign-Up`}>Sign Up</Link></Menu.Item>
+
+            <Menu.Item key="login">
+              <Link href={`/Login`}>Login</Link>
             </Menu.Item>
-            <Menu.Item key="mail">
-              <a href="">Sign up</a>
-            </Menu.Item>
-            <Menu.Item key="alipay">
+            <Menu.Item key="contact">
               <a href="">Contact Us</a>
             </Menu.Item>
           </Menu>
+        
+        
         </Header>
         <Content>
           <Carousel autoplay>
@@ -122,10 +126,12 @@ const Home = ()=> {
             </Col>
           </Row>
         </Content>
-        <Footer>Footer</Footer>
+        <Footer>
+          .................................................
+        </Footer>
       </Layout>
     </div>
   );
-}
+};
 
 export default Home;
