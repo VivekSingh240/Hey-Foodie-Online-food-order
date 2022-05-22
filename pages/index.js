@@ -37,10 +37,7 @@ const Restaurants = `query MyQuery {
 `;
 
 const Home = () => {
-
-
   const { data } = useQuery(Restaurants, {});
-  console.log("data", data);
 
   useEffect(() => {
     try {
