@@ -22,6 +22,7 @@ export default function Sign() {
     // password:''
   });
   const [userDetails, setDetails] = useState({
+    username:"",
     email: "",
     password: "",
   });
@@ -41,6 +42,7 @@ export default function Sign() {
     try {
       form.validateFields().then(async (values) => {
         if (
+          userDetails.username !== "" &&
           userDetails.email !== "" &&
           userDetails.password !== "" &&
           InsertedEmails !== userDetails.email
@@ -98,6 +100,26 @@ export default function Sign() {
                   form={form}
                   onFinish={submit}
                 >
+                  <Form.Item
+                    wrapperCol={{ span: 24 }}
+                    name="UserName"
+                    label="User Name"
+                    rules={[
+                      {
+                        required: true,
+                      },
+                    ]}
+                  >
+                    <Input
+                      style={{ height: "40px", borderRadius: "24px" }}
+                      value={userDetails.username}
+                      placeholder="Enter your username"
+                      onChange={(e) => {
+                        setDetails({ ...userDetails, username: e.target.value });
+                      }}
+                    />
+                  </Form.Item>
+
                   <Form.Item
                     wrapperCol={{ span: 24 }}
                     name="EmailId"
@@ -160,20 +182,7 @@ export default function Sign() {
                   </Form.Item>
 
                   <Form.Item wrapperCol={{ span: 24 }}>
-                    {/* <Button
-                        style={{
-                          padding: "20px 30px 20px 30px",
-                          alignItems: "center",
-                          display: "inline-flex",
-                          height: "40px",
-                          borderRadius: "24px",
-                        }}
-                        type="primary"
-                        htmlType="submit"
-                        size="large"
-                      >
-                       Submit
-                      </Button> */}
+                
                     {!session && (
                       <>
                         <Button onClick={() => signIn()} style={{
@@ -214,4 +223,3 @@ export default function Sign() {
     </div>
   );
 }
-

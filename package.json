@@ -9,6 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@emotion/react": "^11.9.0",
+    "@emotion/styled": "^11.8.1",
     "@stripe/react-stripe-js": "^1.8.0",
     "@stripe/stripe-js": "^1.29.0",
     "antd": "^4.20.4",
@@ -20,5 +22,9 @@
     "react-dom": "18.1.0",
     "stripe": "^9.2.0",
     "styled-components": "^5.3.5"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.9",
+    "typescript": "^4.6.4"
   }
 }

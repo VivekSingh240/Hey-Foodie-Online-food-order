@@ -7,13 +7,15 @@ import {
   PlusSquareOutlined,
   MinusSquareOutlined,
 } from "@ant-design/icons";
-import { Card, Avatar } from "antd";
+import { Card, Avatar,Typography } from "antd";
 const { Meta } = Card;
 import { useQuery } from "graphql-hooks";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import { useEffect } from "react";
 import Link from "next/link";
+import Foodtheme from "../Components/foodtheme";
+import  FooterComponent  from "../../pages/Components/footer.tsx";
 const { Header, Content, Footer } = Layout;
 
 const HOMEPAGE_QUERY = `query HomePage($limit: Int) {
@@ -28,6 +30,7 @@ const HOMEPAGE_QUERY = `query HomePage($limit: Int) {
   }`;
 
 const ProductCard = () => {
+  const {Title,Paragraph} = Typography
   const [cartItemList, setCartItemList] = useState(0);
   const router = useRouter();
 
@@ -64,7 +67,7 @@ const ProductCard = () => {
     <>
       <Layout>
         <Header>
-          <Menu mode="horizontal" theme="dark">
+          <Menu mode="horizontal" theme="dark" style={{justifyContent:"end"}}>
             <Menu.Item key="orders">
               <a href="">My Orders</a>
             </Menu.Item>
@@ -81,54 +84,39 @@ const ProductCard = () => {
           </Menu>
         </Header>
         <Content style={{ padding: "50px 50px" }}>
-          <Row>
-            <Col span={24}>
-              <Row gutter={[0, 90]}>
+          <Foodtheme/>
+          <Title style={{textAlign:"center",fontSize:"32px",fontFamily:"serif",fontWeight:"800",marginTop:"10px"}} >Select the Best Product</Title>
+          <Row justify="space-around">
+            <Col span={24} style={{padding:"50px"}}>
+              <Row align="middle"  gutter={[0, 40]}>
                 {products?.map((item, i) => {
                   return (
-                    <Col span={8} key={i}>
-                      <Card
-                        style={{ width: 300, height: 500 }}
-                        cover={
-                          <img
-                            alt="example"
-                            src={`${item.image}`}
-                            style={{ height: 250, width: 300 }}
-                          />
-                        }
-
-                      >
-                        <Meta
-                          title={item.name}
-                          description={item.description}
-                        />
-                        <Row gutter={[5, 5]}>
-                          <Col span={24} style={{ fontSize: "15px" }}>
-                            Price : {item.price}
-                          </Col>
-
-                          <Col span={24}>
-                            <Button
-                              type="primary"
-                              shape="round"
-                              onClick={() => saveData(item)}
-                            >
+                    <Fragment>
+                    <Col span={4} key={i}>
+                      <img alt="example" src={`${item.image}`} style={{ height: 150, width: 200 }}/>
+                    </Col>  
+                    <Col span={18}>
+                      <Row >
+                        <Col span={24}><Title  style={{fontSize:"20px",fontWeight:600}}> {item.name} </Title></Col>
+                        <Col span={24}><Paragraph style={{fontSize:"14px",fontWeight:500}}> {item.description}</Paragraph></Col>
+                        <Col span={24} style={{fontSize:"16px",fontWeight:600,marginBottom:"4px"}}>  Price : {item.price}$ </Col>
+                        <Col span={24}><Button type="primary" shape="round" onClick={() => saveData(item)}>
                               ADD
-                              <ShoppingCartOutlined
-                                key={"shopping"}
-                                style={{ color: "black" }}
-                              />
+                          <ShoppingCartOutlined key={"shopping"} style={{ color: "black" }}/>
                             </Button>
-                          </Col>
-                        </Row>
-                      </Card>
+                        </Col>
+                      </Row>
                     </Col>
-                  );
+                  </Fragment>
+                  )
                 })}
               </Row>
             </Col>
           </Row>
         </Content>
+        <Footer>
+        <FooterComponent/>
+        </Footer>
       </Layout>
     </>
   );

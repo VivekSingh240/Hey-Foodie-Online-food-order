@@ -1,13 +1,16 @@
 import "antd/dist/antd.css"; // or 'antd/dist/antd.less'
 import { Layout, Menu, Row, Col, Carousel, Button, Badge } from "antd";
 import Payment from "../Payment";
-import { Card, Avatar } from "antd";
+import { Card, Avatar,Form,Input,Typography } from "antd";
 import { useState } from "react";
 import React from "react";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
+import  FooterComponent  from "../../pages/Components/footer.tsx";
 
 const Cart = () => {
+  const {Title} = Typography;
+  const { Header, Footer, Sider, Content } = Layout;
   const [items, setItems] = useState([]);
   const [total, setTotal] = useState()
   const router = useRouter();
@@ -37,9 +40,10 @@ const Cart = () => {
 
   return (
     <>
-      <Row style={{ backgroundColor: "beige", height: "auto" }}>
+      <Row justify="space-around " style={{ backgroundColor: "#ed9191", height: "auto" }}>
         <Col span={12}>
-          <Card style={{ backgroundColor: "pink" }}>
+        <Title style={{textAlign:"center",fontSize:"25px",fontFamily:"serif",fontWeight:"800",marginTop:"5px"}} >Cart Product</Title>
+          <Card style={{ backgroundColor: "#ed9191",marginTop:"20px" }}>
             <Row gutter={[0, 30]}>
               {items?.map((item, i) => {
                 return (
@@ -111,11 +115,6 @@ const Cart = () => {
                   </Col>
 
                 </Row>
-                <Row>
-                  <Col>
-                    <Button onClick={() => setIsModalVisible(true)} >Pay now</Button>
-                  </Col>
-                </Row>
               </>
             ) : (
               <Row>
@@ -130,8 +129,78 @@ const Cart = () => {
             )}
           </Card>
         </Col>
+        <Col span={10}>
+          <Title style={{textAlign:"center",fontSize:"25px",fontFamily:"serif",fontWeight:"800",marginTop:"5px"}} >User Order Details</Title>
+        <Form 
+      name="basic"
+      wrapperCol={{ span: 24 }}
+      initialValues={{ remember: true }}
+      // onFinish={onFinish}
+      // onFinishFailed={onFinishFailed}
+      autoComplete="off"
+    >
+      <Form.Item wrapperCol={{ span: 24 }}
+       name="username"
+        rules={[{ required: true, message: 'Please input your username!' }]}
+      >
+        <Input  
+        placeholder="Enter Your Name"
+        style={{height:"40px",borderRadius:"24px"}}
+        
+         />
+      </Form.Item >
+      <Form.Item wrapperCol={{ span: 24 }}
+       name="username"
+        rules={[{ required: true, message: 'Please input your username!' }]}
+      >
+        <Input  
+        style={{height:"40px",borderRadius:"24px"}}
+        placeholder="Enter Your Mobile No.-"
+         />
+      </Form.Item >
+      <Form.Item wrapperCol={{ span: 24 }}
+       name="username"
+        rules={[{ required: true, message: 'Please input your username!' }]}
+      >
+        <Input  
+        style={{height:"40px",borderRadius:"24px"}}
+        placeholder="Enter Your Delivery Address"
+         />
+      </Form.Item >
+
+      <Form.Item
+        wrapperCol={{ span: 24 }}
+        name="password"
+        rules={[{ required: true, message: 'Please input your password!' }]}
+      >
+        <Input 
+        style={{height:"40px",borderRadius:"24px"}}
+        placeholder="Enter your House No. and Pin Code"
+         />
+      </Form.Item>
+
+      {/* <Form.Item name="remember" valuePropName="checked">
+        <Checkbox>Remember me</Checkbox>
+      </Form.Item> */}
+
+      <Form.Item wrapperCol={{ span: 24 }} >
+        <Button block onClick={() => setIsModalVisible(true)} style={{padding:"20px 30px 20px 30px",justifyContent:"center",alignItems:"center",display:"inline-flex",height:"40px",borderRadius:"24px",backgroundColor:"green"}} type="primary" size='large'  >
+          Pay Now
+        </Button>
+      </Form.Item>
+      {/* <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+        <Button type="primary" htmlType="submit" block onClick={deletedData} >
+          Delete
+        </Button>
+      </Form.Item> */}
+    </Form>
+        </Col>
         <Payment isModalVisible={isModalVisible} setIsModalVisible={setIsModalVisible} items={items} />
       </Row>
+      <Footer>
+      <FooterComponent/>
+      </Footer>
+     
     </>
   );
 };
