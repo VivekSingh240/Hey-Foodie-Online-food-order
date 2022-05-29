@@ -9,6 +9,7 @@ import Image from "next/image";
 import "antd/dist/antd.css"; // or 'antd/dist/antd.less'
 import { LoginInfo } from "../../Graphql/Mutation/Query";
 import Link from "next/link";
+import { useSession, signIn, signOut } from "next-auth/react"
 
 export default function Login() {
   const [InsertDetails] = useMutation(InsertData);
@@ -46,7 +47,7 @@ export default function Login() {
           InsertedLoginData.email == userDetails.email &&
           InsertedLoginData.password == userDetails.password
         ) {
-          window.location = "/";
+          window.location = "/DashboardPage";
           console.log("userDetails__1", InsertedLoginData);
         } else {
           alert("Entered Email or Password is wrong");

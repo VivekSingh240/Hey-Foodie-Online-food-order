@@ -31,8 +31,9 @@ const HOMEPAGE_QUERY = `query HomePage($limit: Int) {
 
 const ProductCard = () => {
   const {Title,Paragraph} = Typography
-  const [cartItemList, setCartItemList] = useState(0);
   const router = useRouter();
+  const urls = router.query;
+  const [cartItemList, setCartItemList] = useState(0);
 
   const { data } = useQuery(HOMEPAGE_QUERY, {
     variables: {
@@ -83,9 +84,10 @@ const ProductCard = () => {
             </Menu.Item>
           </Menu>
         </Header>
-        <Content style={{ padding: "50px 50px" }}>
+        <Content>
+        <Title style={{textAlign:"center",fontSize:"40px",fontFamily:"serif",fontWeight:"800",padding:"10px"}}>{urls.ct} </Title>
           <Foodtheme/>
-          <Title style={{textAlign:"center",fontSize:"32px",fontFamily:"serif",fontWeight:"800",marginTop:"10px"}} >Select the Best Product</Title>
+          <Title style={{textAlign:"center",fontSize:"32px",fontFamily:"serif",fontWeight:"800",marginTop:"10px"}} >Select the Best Product from {urls.ct} </Title>
           <Row justify="space-around">
             <Col span={24} style={{padding:"50px"}}>
               <Row align="middle"  gutter={[0, 40]}>

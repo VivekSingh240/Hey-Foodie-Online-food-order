@@ -31,11 +31,11 @@ callbacks:{
         return token
     },
 
-redirect: async(url,_baseUrl)=>{
-    if (url === '/profile'){
-        return Promise.resolve('/')
-    }
-    return Promise.resolve('/')
-}
+// redirect: async(url,_baseUrl)=>{
+//     if (url === '/profile'){
+//         return Promise.resolve('/DashboardPage')
+//     }
+//     return Promise.resolve('/')
+// }
 }
 })

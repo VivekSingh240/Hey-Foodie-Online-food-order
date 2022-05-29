@@ -150,7 +150,7 @@ const Cart = () => {
          />
       </Form.Item >
       <Form.Item wrapperCol={{ span: 24 }}
-       name="username"
+       name="Mobile"
         rules={[{ required: true, message: 'Please input your username!' }]}
       >
         <Input  
@@ -159,7 +159,7 @@ const Cart = () => {
          />
       </Form.Item >
       <Form.Item wrapperCol={{ span: 24 }}
-       name="username"
+       name="DeliveryAddress"
         rules={[{ required: true, message: 'Please input your username!' }]}
       >
         <Input  
@@ -170,7 +170,7 @@ const Cart = () => {
 
       <Form.Item
         wrapperCol={{ span: 24 }}
-        name="password"
+        name="house"
         rules={[{ required: true, message: 'Please input your password!' }]}
       >
         <Input 

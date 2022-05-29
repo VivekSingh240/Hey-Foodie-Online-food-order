@@ -2,21 +2,21 @@ import Head from "next/head";
 import Image from "next/image";
 import "antd/dist/antd.css"; // or 'antd/dist/antd.less'
 import { Layout, Menu, Row, Col, Carousel,Typography } from "antd";
-import styles from "../styles/Home.module.css";
+import styles from "../../styles/Home.module.css";
 import { Card, Avatar } from "antd";
 import { useQuery } from "graphql-hooks";
-import Img1 from "../public/Images/img-1.webp";
-import Img2 from "../public/Images/img-2.jpg";
-import Img3 from "../public/Images/img-3.jpg";
-import Foodie from "../public/Images/foodie-1.png";
-import Foodie1 from "../public/Images/foodie-2.jpg";
-import Foodie2 from "../public/Images/foodie-3.jpg";
+import Img1 from "../../public/Images/img-1.webp";
+import Img2 from "../../public/Images/img-2.jpg";
+import Img3 from "../../public/Images/img-3.jpg";
+import Foodie from "../../public/Images/foodie-1.png";
+import Foodie1 from "../../public/Images/foodie-2.jpg";
+import Foodie2 from "../../public/Images/foodie-3.jpg";
 import Link from "next/link";
 import { useEffect,Fragment } from "react";
-import  Pageheader  from "../pages/Components";
-import  FooterComponent  from "../pages/Components/footer.tsx";
-import {CustomCol,CustomText} from "./styled-components.tsx";
-
+import  Dashboardheader  from "../Components/dashboardheader.js";
+import  FooterComponent  from "../../pages/Components/footer.tsx";
+import {CustomCol,CustomText} from ".././styled-components.tsx";
+import {signIn, signOut, useSession} from "next-auth/react"
 const { Meta } = Card;
 const { Header, Footer, Sider, Content } = Layout;
 const contentStyle = {
@@ -40,8 +40,10 @@ const Restaurants = `query MyQuery {
 `;
 
 const Home = () => {
+  
   const { data } = useQuery(Restaurants, {});
   console.log("data", data);
+
   useEffect(() => {
     try {
       localStorage.setItem("Cart", JSON.stringify([]));
@@ -50,6 +52,7 @@ const Home = () => {
     }
   }, []);
   const {Title} = Typography
+  const { data: session } = useSession()
   return (
     <Fragment>
     <div className={styles.container}>
@@ -59,7 +62,7 @@ const Home = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Layout>
-        <Pageheader/>
+        <Dashboardheader/>
         <Content>
           <Carousel autoplay>
             <div style={contentStyle}>
@@ -78,6 +81,7 @@ const Home = () => {
 
           <Row className={styles.text}>
             <Col span={24}> Our Partners </Col>
+          
           </Row>
 
           <Row>

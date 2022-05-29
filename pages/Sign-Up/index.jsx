@@ -9,11 +9,12 @@ import Image from "next/image";
 import "antd/dist/antd.css"; // or 'antd/dist/antd.less'
 import { EmailData } from "../../Graphql/Mutation/Query";
 import Link from "next/link";
-
 import { Pageheader } from "../Components";
 import {signIn, signOut, useSession} from "next-auth/react"
+import LogInWithGoogle from './LoginWithGoogle.js'
 
 export default function Sign() {
+  // const { data: session } = useSession();
   const [InsertDetails] = useMutation(InsertData);
   const [removeData] = useMutation(deletedata);
   const [form] = Form.useForm();
@@ -70,8 +71,8 @@ export default function Sign() {
   }
 
   return (
-    <div className="Login">
     
+    <div className="Login">
       <Row justify={"center"} align="middle" style={{ height: "100vh" }}>
         <Col span={8} style={{ textAlign: "center" }}>
           <Card>
@@ -180,41 +181,8 @@ export default function Sign() {
                       Submit
                     </Button>
                   </Form.Item>
-
-                  <Form.Item wrapperCol={{ span: 24 }}>
-                
-                    {!session && (
-                      <>
-                        <Button onClick={() => signIn()} style={{
-                          padding: "20px 30px 20px 30px",
-                          alignItems: "center",
-                          display: "inline-flex",
-                          height: "40px",
-                          borderRadius: "24px",
-                        }}
-                       
-                        htmlType="submit"
-                        size="large"><Avatar src="https://pixlok.com/wp-content/uploads/2021/04/Google-Icon-PNG-768x768.jpg"/>Continue With Google</Button>
-                      </>
-                    )}
-
-                    {session && (
-                      <>
-                        <h4> you are logged in as :{session.user.name}</h4>
-                        <Button onClick={() => signOut()} style={{
-                          padding: "20px 30px 20px 30px",
-                          alignItems: "center",
-                          display: "inline-flex",
-                          height: "40px",
-                          borderRadius: "24px",
-                        }}
-                        type="primary"
-                        htmlType="submit"
-                        size="large">Sign Out</Button>
-                      </>
-                    )}
-                  </Form.Item>
                 </Form>
+                <LogInWithGoogle/>
               </Col>
             </Row>
           </Card>

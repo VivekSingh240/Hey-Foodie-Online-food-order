@@ -26,4 +26,4 @@ const SuccessPayment = ()=>{
     )
 }
 
-export default SuccessPayment
+export default SuccessPayment;
