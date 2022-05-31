@@ -66,13 +66,13 @@ const Home = () => {
               <Image preview={{ visible: false }} height={560} src={Img1} />
             </div>
             <div style={contentStyle}>
-              <Image preview={{ visible: false }} height={540} src={Img2} />
-            </div>
-            <div style={contentStyle}>
               <Image preview={{ visible: false }} height={540} src={Img3} />
             </div>
             <div style={contentStyle}>
-              <Image preview={{ visible: false }} height={540} src={Img2} />
+              <Image preview={{ visible: false }} height={540} src={Img1} />
+            </div>
+            <div style={contentStyle}>
+              <Image preview={{ visible: false }} height={540} src={Img3} />
             </div>
           </Carousel>
 
@@ -90,7 +90,7 @@ const Home = () => {
                         <Col span={5}>
                           <Link  href={`/Products?ct=${items.Category}`}>
                             <Card
-                              style={{ width: 300, height: 300 }}
+                              style={{ width: 300, height: 300,cursor:"pointer" }}
                               cover={
                                 <img
                                   alt="example"

@@ -22,6 +22,18 @@ const CheckoutForm = () => {
     });
 
     if(!error){
+      console.log("tfgklhjjhvsbvkj");
+      const completedOrders = localStorage.getItem("Cart");
+      console.log("after checkout : ",completedOrders)
+      try{
+          const orders = JSON.parse(localStorage.getItem("Orders"));
+          const modifiedOrderArr = {...orders,...completedOrders};
+          console.log("modified ::::" , modifiedOrderArr);
+          localStorage.setItem("Orders",JSON.stringify(modifiedOrderArr));
+      }
+      catch(err){
+        localStorage.setItem("Orders",JSON.stringify(completedOrders));    
+      }
       localStorage.setItem("Cart", []);
     }
 

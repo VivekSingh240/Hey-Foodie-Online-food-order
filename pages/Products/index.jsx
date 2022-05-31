@@ -7,7 +7,7 @@ import {
   PlusSquareOutlined,
   MinusSquareOutlined,
 } from "@ant-design/icons";
-import { Card, Avatar,Typography } from "antd";
+import { Card, Avatar, Typography } from "antd";
 const { Meta } = Card;
 import { useQuery } from "graphql-hooks";
 import { useRouter } from "next/router";
@@ -15,7 +15,7 @@ import { Fragment, useState } from "react";
 import { useEffect } from "react";
 import Link from "next/link";
 import Foodtheme from "../Components/foodtheme";
-import  FooterComponent  from "../../pages/Components/footer.tsx";
+import FooterComponent from "../../pages/Components/footer.tsx";
 const { Header, Content, Footer } = Layout;
 
 const HOMEPAGE_QUERY = `query HomePage($limit: Int) {
@@ -29,8 +29,10 @@ const HOMEPAGE_QUERY = `query HomePage($limit: Int) {
     }
   }`;
 
+  
 const ProductCard = () => {
-  const {Title,Paragraph} = Typography
+  const { Title, Paragraph } = Typography;
+  const [dt, Setdt] = useState("Add");
   const router = useRouter();
   const urls = router.query;
   const [cartItemList, setCartItemList] = useState(0);
@@ -41,83 +43,158 @@ const ProductCard = () => {
     },
   });
 
-  const products =data && data.Products.filter((item) => {
+  const products =
+    data &&
+    data.Products.filter((item) => {
       return item.category === router.query.ct;
     });
 
-    
   const saveData = (product) => {
+    Setdt("+1")
     try {
-      const getDatFromLocalStorage = localStorage.getItem("Cart") ? JSON.parse(localStorage.getItem("Cart")) : [];
-      const newCart = getDatFromLocalStorage?.length ? getDatFromLocalStorage : [];
-      let itemInCart = newCart.find(item => item && item.name === product.name);
+      const getDatFromLocalStorage = localStorage.getItem("Cart")
+        ? JSON.parse(localStorage.getItem("Cart"))
+        : [];
+      const newCart = getDatFromLocalStorage?.length
+        ? getDatFromLocalStorage
+        : [];
+      let itemInCart = newCart.find(
+        (item) => item && item.name === product.name
+      );
       if (itemInCart) {
         itemInCart.quantity++;
       } else {
-        itemInCart = {...product,quantity: 1};
+        itemInCart = { ...product, quantity: 1 };
         newCart.push(itemInCart);
       }
       localStorage.setItem("Cart", JSON.stringify(newCart));
-      setCartItemList(localStorage.getItem("Cart") ? JSON.parse(localStorage.getItem("Cart")).length : 0);
+      setCartItemList(
+        localStorage.getItem("Cart")
+          ? JSON.parse(localStorage.getItem("Cart")).length
+          : 0
+      );
     } catch (error) {
       console.log("error", error);
     }
   };
+  
 
   return (
     <>
       <Layout>
         <Header>
-          <Menu mode="horizontal" theme="dark" style={{justifyContent:"end"}}>
+          <Menu
+            mode="horizontal"
+            theme="dark"
+            style={{ justifyContent: "end" }}
+          >
             <Menu.Item key="orders">
-              <a href="">My Orders</a>
+              <a href="/DashboardPage">Home</a>
             </Menu.Item>
             <Menu.Item key="cart">
-            <Link href={`/Cart`}>
+              <Link href={`/Cart`}>
                 <Badge count={cartItemList} size="small" showZero>
                   <ShoppingCartOutlined
                     key={"shopping"}
                     style={{ color: "white", fontSize: "25px" }}
                   />
                 </Badge>
-                </Link>
+              </Link>
             </Menu.Item>
           </Menu>
         </Header>
         <Content>
-        <Title style={{textAlign:"center",fontSize:"40px",fontFamily:"serif",fontWeight:"800",padding:"10px"}}>{urls.ct} </Title>
-          <Foodtheme/>
-          <Title style={{textAlign:"center",fontSize:"32px",fontFamily:"serif",fontWeight:"800",marginTop:"10px"}} >Select the Best Product from {urls.ct} </Title>
+          <Title
+            style={{
+              textAlign: "center",
+              fontSize: "40px",
+              fontFamily: "serif",
+              fontWeight: "800",
+              padding: "10px",
+            }}
+          >
+            {urls.ct}{" "}
+          </Title>
+          <Foodtheme />
+          <Title
+            style={{
+              textAlign: "center",
+              fontSize: "32px",
+              fontFamily: "serif",
+              fontWeight: "800",
+              marginTop: "10px",
+            }}
+          >
+            Select the Best Product from {urls.ct}{" "}
+          </Title>
           <Row justify="space-around">
-            <Col span={24} style={{padding:"50px"}}>
-              <Row align="middle"  gutter={[0, 40]}>
+            <Col span={24} style={{ padding: "50px" }}>
+              <Row align="middle" gutter={[0, 40]}>
                 {products?.map((item, i) => {
                   return (
                     <Fragment>
-                    <Col span={4} key={i}>
-                      <img alt="example" src={`${item.image}`} style={{ height: 150, width: 200 }}/>
-                    </Col>  
-                    <Col span={18}>
-                      <Row >
-                        <Col span={24}><Title  style={{fontSize:"20px",fontWeight:600}}> {item.name} </Title></Col>
-                        <Col span={24}><Paragraph style={{fontSize:"14px",fontWeight:500}}> {item.description}</Paragraph></Col>
-                        <Col span={24} style={{fontSize:"16px",fontWeight:600,marginBottom:"4px"}}>  Price : {item.price}$ </Col>
-                        <Col span={24}><Button type="primary" shape="round" onClick={() => saveData(item)}>
-                              ADD
-                          <ShoppingCartOutlined key={"shopping"} style={{ color: "black" }}/>
-                            </Button>
-                        </Col>
-                      </Row>
-                    </Col>
-                  </Fragment>
-                  )
+                      <Col span={4} key={i}>
+                        <img
+                          alt="example"
+                          src={`${item.image}`}
+                          style={{ height: 150, width: 200 }}
+                        />
+                      </Col>
+                      <Col span={18}>
+                        <Row>
+                          <Col span={24}>
+                            <Title
+                              style={{ fontSize: "20px", fontWeight: 600 }}
+                            >
+                              {" "}
+                              {item.name}{" "}
+                            </Title>
+                          </Col>
+                          <Col span={24}>
+                            <Paragraph
+                              style={{ fontSize: "14px", fontWeight: 500 }}
+                            >
+                              {" "}
+                              {item.description}
+                            </Paragraph>
+                          </Col>
+                          <Col
+                            span={24}
+                            style={{
+                              fontSize: "16px",
+                              fontWeight: 600,
+                              marginBottom: "4px",
+                            }}
+                          >
+                            {" "}
+                            Price : {item.price}${" "}
+                          </Col>
+                          <Col span={24}>
+                            
+                              <Button
+                                type="primary"
+                                shape="round"
+                                onClick={() => saveData(item)}
+                              >
+                                <ShoppingCartOutlined
+                                  key={"shopping"}
+                                  style={{ color: "black" }}
+                                />
+                                {dt}
+                              </Button>
+                             
+                          </Col>
+                        </Row>
+                      </Col>
+                    </Fragment>
+                  );
                 })}
               </Row>
             </Col>
           </Row>
         </Content>
         <Footer>
-        <FooterComponent/>
+          <FooterComponent />
         </Footer>
       </Layout>
     </>

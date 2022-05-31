@@ -8,14 +8,18 @@ const { Header, Footer, Sider, Content } = Layout;
  const MyOrder = () => {
     const router = useRouter();
     const {Title} = Typography;
+    const [order,Setorder]=useState([])
     const [items, setItems] = useState([]);
     const [total, setTotal] = useState()
     const [isModalVisible, setIsModalVisible] = useState(false);
     useEffect(() => {
         const cartItems = JSON.parse(localStorage.getItem("Cart"));
-        console.log("cart items", cartItems)
+        console.log("cart items : ", cartItems);
+        
+      
         if (cartItems) {
           setItems(cartItems);
+          Setorder(cartItems);
           setIsModalVisible(false)
           const data = cartItems.map((ele, i) => {
             return ele.quantity * ele.price;
@@ -29,9 +33,9 @@ const { Header, Footer, Sider, Content } = Layout;
           setTotal(sum)
     
           console.log("sum", total);
-          console.log("dataa", data);
+          console.log("order", order);
         }
-      }, [router.route]);
+      }, []);
   return (
       <Layout>
           <Header>
@@ -48,7 +52,7 @@ const { Header, Footer, Sider, Content } = Layout;
                   <Col span={24} key={i}>
                     <Card style={{ height: 150 }}>
                       <Row>
-                        <Col span={12}>
+                        <Col span={8}>
                           <span>
                             <img
                               alt="example"
@@ -57,7 +61,7 @@ const { Header, Footer, Sider, Content } = Layout;
                             />
                           </span>
                         </Col>
-                        <Col span={12}>
+                        <Col span={8}>
                           <Row>
                             <Col>
                               <strong>{item.name} *</strong>
@@ -92,11 +96,18 @@ const { Header, Footer, Sider, Content } = Layout;
                             </Col>
                           </Row>
                         </Col>
+                        <Col span={8}>
+                          <Row>
+                            <Col span={24} style={{fontWeight:"600",fontSize:"24px",color:"green"}}>Payment Successful</Col>
+                            <Col style={{fontWeight:"400",fontSize:"18px"}}  span={24}>Order:<span>Placed</span></Col>
+                          </Row>
+                        </Col>
                       </Row>
                     </Card>
                   </Col>
                 );
               })}
+              
             </Row>
 
             {items.length !== 0 ? (

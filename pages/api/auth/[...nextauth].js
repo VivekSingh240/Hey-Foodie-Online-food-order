@@ -30,6 +30,14 @@ callbacks:{
         }
         return token
     },
+        async signIn({ account, profile }) {
+        if (account.provider === "google") {
+          console.log("useremailll",profile.getEmail() )
+          return profile.email_verified 
+        }
+        return true // Do different verification for other providers that don't have `email_verified`
+      },
+
 
 // redirect: async(url,_baseUrl)=>{
 //     if (url === '/profile'){

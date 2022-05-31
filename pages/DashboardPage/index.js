@@ -17,6 +17,7 @@ import  Dashboardheader  from "../Components/dashboardheader.js";
 import  FooterComponent  from "../../pages/Components/footer.tsx";
 import {CustomCol,CustomText} from ".././styled-components.tsx";
 import {signIn, signOut, useSession} from "next-auth/react"
+import { UserProvider } from "@auth0/nextjs-auth0";
 const { Meta } = Card;
 const { Header, Footer, Sider, Content } = Layout;
 const contentStyle = {
@@ -55,6 +56,7 @@ const Home = () => {
   const { data: session } = useSession()
   return (
     <Fragment>
+      <UserProvider>
     <div className={styles.container}>
       <Head>
         <title>Hey Foodie</title>
@@ -69,13 +71,13 @@ const Home = () => {
               <Image preview={{ visible: false }} height={560} src={Img1} />
             </div>
             <div style={contentStyle}>
-              <Image preview={{ visible: false }} height={540} src={Img2} />
-            </div>
-            <div style={contentStyle}>
               <Image preview={{ visible: false }} height={540} src={Img3} />
             </div>
             <div style={contentStyle}>
-              <Image preview={{ visible: false }} height={540} src={Img2} />
+              <Image preview={{ visible: false }} height={540} src={Img1} />
+            </div>
+            <div style={contentStyle}>
+              <Image preview={{ visible: false }} height={540} src={Img3} />
             </div>
           </Carousel>
 
@@ -94,7 +96,7 @@ const Home = () => {
                         <Col span={5}>
                           <Link  href={`/Products?ct=${items.Category}`}>
                             <Card
-                              style={{ width: 300, height: 300 }}
+                              style={{ width: 300, height: 300,cursor:"pointer"  }}
                               cover={
                                 <img
                                   alt="example"
@@ -143,6 +145,7 @@ const Home = () => {
         <Footer><FooterComponent/></Footer>
       </Layout>
     </div>
+    </UserProvider>
     </Fragment>
   );
 };
